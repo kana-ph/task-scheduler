@@ -30,4 +30,5 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 
 	compile('org.postgresql:postgresql:42.2.2')
+	compile('org.projectlombok:lombok:1.18.0')
 }
