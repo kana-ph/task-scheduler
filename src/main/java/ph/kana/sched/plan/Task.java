@@ -1,5 +1,7 @@
 package ph.kana.sched.plan;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeId;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,6 +19,7 @@ public class Task {
 
 	@Version
 	@NotNull
+	@JsonIgnore
 	private Long version;
 
 	@NotNull

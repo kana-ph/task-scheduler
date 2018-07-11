@@ -1,5 +1,6 @@
 package ph.kana.sched.plan;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class ProjectPlan {
 
 	@Version
 	@NotNull
+	@JsonIgnore
 	private Long version;
 
 	@NotNull
