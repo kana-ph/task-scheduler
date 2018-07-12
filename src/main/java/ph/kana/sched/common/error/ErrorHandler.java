@@ -19,7 +19,7 @@ public class ErrorHandler {
 	}
 
 	@ExceptionHandler(MissingRequiredFieldException.class)
-	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
 	public @ResponseBody ErrorResponse handleMissingRequiredFieldException(MissingRequiredFieldException exception) {
 		String message = String.format("Missing required value for field: '%s'", exception.getField());
 		return new ErrorResponse("MISSING_REQUIRED_VALUE", message);
@@ -31,6 +31,12 @@ public class ErrorHandler {
 		return new ErrorResponse("MISSING_BODY", "This request requires a JSON payload.");
 	}
 
+	@ExceptionHandler(ServiceValidationException.class)
+	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+	public @ResponseBody ErrorResponse handleServiceValidationException(ServiceValidationException e) {
+		ApiError error = e.getError();
+		return new ErrorResponse(error.name(), error.getMessage());
+	}
 
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

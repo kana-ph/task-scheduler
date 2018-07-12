@@ -2,6 +2,8 @@ package ph.kana.sched.plan;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ph.kana.sched.common.error.ApiError;
+import ph.kana.sched.common.error.ServiceValidationException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,5 +29,12 @@ public class ProjectPlanService {
 
 	public Optional<ProjectPlan> fetchById(Long id) {
 		return projectPlanRepository.findById(id);
+	}
+
+	public ProjectPlan create(ProjectPlan plan) throws ServiceValidationException {
+		if (projectPlanRepository.existsByName(plan.getName())) {
+			throw new ServiceValidationException(ApiError.PLAN_NAME_EXISTS);
+		}
+		return projectPlanRepository.save(plan);
 	}
 }

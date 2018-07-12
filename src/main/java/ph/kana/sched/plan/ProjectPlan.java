@@ -21,5 +21,6 @@ public class ProjectPlan {
 	private Long version;
 
 	@NotNull
+	@Column(unique = true)
 	private String name;
 }
