@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.mockito.ArgumentMatchers.anyLong
 import org.mockito.BDDMockito.given
 import org.mockito.Mockito.mock
-import ph.kana.sched.common.ResourceNotFoundException
+import ph.kana.sched.common.error.ResourceNotFoundException
 import java.util.*
 
 class ProjectPlanControllerTest {

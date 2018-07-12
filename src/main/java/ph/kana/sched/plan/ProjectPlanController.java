@@ -2,7 +2,8 @@ package ph.kana.sched.plan;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ph.kana.sched.common.ResourceNotFoundException;
+import ph.kana.sched.common.error.MissingRequiredFieldException;
+import ph.kana.sched.common.error.ResourceNotFoundException;
 
 import java.util.List;
 
