@@ -45,6 +45,12 @@ public class ErrorHandler {
 		return new ErrorResponse("INVALID_TASK_DEPENDENCY_ID", "One or more 'taskDependencyIds' invalid.");
 	}
 
+	@ExceptionHandler(InvalidPlanException.class)
+	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+	public @ResponseBody ErrorResponse handleInvalidPlanException(InvalidPlanException e) {
+		return new ErrorResponse("INVALID_PLAN_ID", "Value for field 'planId` is either missing or invalid.");
+	}
+
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public @ResponseBody ErrorResponse handleException(Exception e) {
