@@ -1,12 +1,11 @@
 package ph.kana.sched.plan;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonTypeId;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -33,7 +32,6 @@ public class Task {
 	@NotNull
 	private int dayDuration;
 
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "task_dependencies")
-	private Collection<Task> dependencies;
+	@ManyToMany(targetEntity = Task.class)
+	private List<Task> dependencies;
 }

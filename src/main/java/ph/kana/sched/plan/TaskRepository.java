@@ -9,5 +9,7 @@ public interface TaskRepository extends CrudRepository<Task, Long> {
 
 	List<Task> findAllByPlan(ProjectPlan plan);
 
+	List<Task> findAllByPlanAndIdIn(ProjectPlan plan, List<Long> ids);
+
 	Optional<Task> findByPlanAndId(ProjectPlan plan, Long id);
 }

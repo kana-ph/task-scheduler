@@ -39,6 +39,12 @@ public class ErrorHandler {
 		return new ErrorResponse(error.name(), error.getMessage());
 	}
 
+	@ExceptionHandler(InvalidTaskDependencyException.class)
+	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+	public @ResponseBody ErrorResponse handleInvalidTaskDependencyException(InvalidTaskDependencyException e) {
+		return new ErrorResponse("INVALID_TASK_DEPENDENCY_ID", "One or more 'taskDependencyIds' invalid.");
+	}
+
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public @ResponseBody ErrorResponse handleException(Exception e) {

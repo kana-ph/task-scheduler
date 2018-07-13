@@ -3,11 +3,14 @@ package ph.kana.sched.plan
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentMatchers.anyLong
-import org.mockito.ArgumentMatchers.eq
+import org.mockito.ArgumentMatchers.*
 import org.mockito.BDDMockito.given
+import org.mockito.BDDMockito.then
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.times
 import org.springframework.boot.test.context.SpringBootTest
+import ph.kana.sched.common.error.InvalidTaskDependencyException
+import ph.kana.sched.common.error.MissingRequiredFieldException
 import ph.kana.sched.common.error.ResourceNotFoundException
 import java.util.*
 
@@ -91,5 +94,85 @@ class TaskControllerTest {
 				.willReturn(Optional.empty())
 
 		controller.show(999, 999)
+	}
+
+	@Test
+	fun `create should create a task when all given are valid`() {
+		val plan: ProjectPlan = mock(ProjectPlan::class.java)
+		val planId = 1L
+		given(projectPlanService.fetchById(planId))
+				.willReturn(Optional.of(plan))
+
+		val task: Task = mock(Task::class.java)
+		given(taskService.create(any(Task::class.java)))
+				.willReturn(task)
+
+		val request = TaskRestEntity()
+		request.name = "Task Name"
+		request.dayDuration = 2
+
+		controller.create(planId, request)
+
+		then(taskService)
+				.should(times(1))
+				.create(any(Task::class.java))
+	}
+
+	@Test(expected = InvalidTaskDependencyException::class)
+	fun `create should throw invalid dependency when one of the given dependency ID is invalid`() {
+		val plan: ProjectPlan = mock(ProjectPlan::class.java)
+		val planId = 1L
+		given(projectPlanService.fetchById(planId))
+				.willReturn(Optional.of(plan))
+
+		val dependencyIds: List<Long> = Arrays.asList(2, 3)
+		val dependencies: List<Task> = Arrays.asList(mock(Task::class.java))
+		given(taskService.fetchAllByIds(plan, dependencyIds))
+				.willReturn(dependencies)
+
+		val request = TaskRestEntity()
+		request.name = "Task Name"
+		request.dayDuration = 2
+		request.dependencyIds = dependencyIds
+
+		controller.create(planId, request)
+	}
+
+	@Test(expected = MissingRequiredFieldException::class)
+	fun `create should throw missing field when name is not given`() {
+		val plan: ProjectPlan = mock(ProjectPlan::class.java)
+		val planId = 1L
+		given(projectPlanService.fetchById(planId))
+				.willReturn(Optional.of(plan))
+
+		val request = TaskRestEntity()
+		request.dayDuration = 2
+
+		controller.create(planId, request)
+	}
+
+	@Test(expected = MissingRequiredFieldException::class)
+	fun `create should throw missing field when dayDuration is not given`() {
+		val plan: ProjectPlan = mock(ProjectPlan::class.java)
+		val planId = 1L
+		given(projectPlanService.fetchById(planId))
+				.willReturn(Optional.of(plan))
+
+		val request = TaskRestEntity()
+		request.name = "Task Name"
+
+		controller.create(planId, request)
+	}
+
+	@Test(expected = ResourceNotFoundException::class)
+	fun `create should throw resource not found when given plan ID is invalid`() {
+		given(projectPlanService.fetchById(anyLong()))
+				.willReturn(Optional.empty())
+
+		val request = TaskRestEntity()
+		request.name = "Task Name"
+		request.dayDuration = 2
+
+		controller.create(999, request)
 	}
 }
