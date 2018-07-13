@@ -28,7 +28,8 @@ public class ErrorHandler {
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public @ResponseBody ErrorResponse handleHttpMessageNotReadableException(HttpMessageNotReadableException exception) {
-		return new ErrorResponse("MISSING_BODY", "This request requires a JSON payload.");
+		String message = "Invalid JSON payload. Check for invalid data types, refer to docs for more information.";
+		return new ErrorResponse("INVALID_JSON_BODY", message);
 	}
 
 	@ExceptionHandler(ServiceValidationException.class)
@@ -42,6 +43,6 @@ public class ErrorHandler {
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public @ResponseBody ErrorResponse handleException(Exception e) {
 		log.error(e.getMessage(), e);
-		return new ErrorResponse("INTERNAL_SERVER_ERROR", "Error has been logged. Please contact us.");
+		return new ErrorResponse("INTERNAL_SERVER_ERROR", "Error has been logged. Please contact admin.");
 	}
 }
