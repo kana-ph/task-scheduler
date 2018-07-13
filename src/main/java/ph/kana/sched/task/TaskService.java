@@ -21,7 +21,7 @@ public class TaskService {
 	}
 
 	public List<Task> fetchAllByPlan(ProjectPlan plan) {
-		Iterable<Task> tasks = taskRepository.findAllByPlan(plan);
+		Iterable<Task> tasks = taskRepository.findAllByPlanOrderById(plan);
 		return transformIterableTasksToList(tasks);
 	}
 
@@ -30,7 +30,7 @@ public class TaskService {
 	}
 
 	public List<Task> fetchAllByIds(ProjectPlan plan, List<Long> ids) {
-		Iterable<Task> tasks = taskRepository.findAllByPlanAndIdIn(plan, ids);
+		Iterable<Task> tasks = taskRepository.findAllByPlanAndIdInOrderById(plan, ids);
 		return transformIterableTasksToList(tasks);
 	}
 
