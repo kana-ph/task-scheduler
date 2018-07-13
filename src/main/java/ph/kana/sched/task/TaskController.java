@@ -1,4 +1,4 @@
-package ph.kana.sched.plan;
+package ph.kana.sched.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -6,6 +6,8 @@ import ph.kana.sched.common.error.InvalidTaskDependencyException;
 import ph.kana.sched.common.error.MissingRequiredFieldException;
 import ph.kana.sched.common.error.ResourceNotFoundException;
 import ph.kana.sched.common.error.ServiceValidationException;
+import ph.kana.sched.plan.ProjectPlan;
+import ph.kana.sched.plan.ProjectPlanService;
 
 import java.util.Collections;
 import java.util.List;

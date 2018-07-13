@@ -1,4 +1,4 @@
-package ph.kana.sched.plan
+package ph.kana.sched.task
 
 import org.junit.Before
 import org.junit.Test

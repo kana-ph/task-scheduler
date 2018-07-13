@@ -1,9 +1,10 @@
-package ph.kana.sched.plan;
+package ph.kana.sched.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ph.kana.sched.common.error.ApiError;
 import ph.kana.sched.common.error.ServiceValidationException;
+import ph.kana.sched.plan.ProjectPlan;
 
 import java.util.ArrayList;
 import java.util.List;

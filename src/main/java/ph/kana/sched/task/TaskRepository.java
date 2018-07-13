@@ -1,6 +1,7 @@
-package ph.kana.sched.plan;
+package ph.kana.sched.task;
 
 import org.springframework.data.repository.CrudRepository;
+import ph.kana.sched.plan.ProjectPlan;
 
 import java.util.List;
 import java.util.Optional;

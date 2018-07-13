@@ -1,7 +1,8 @@
-package ph.kana.sched.plan;
+package ph.kana.sched.task;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import ph.kana.sched.plan.ProjectPlan;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

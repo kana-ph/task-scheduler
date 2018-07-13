@@ -1,24 +1,24 @@
-package ph.kana.sched.plan;
+package ph.kana.sched.task;
 
 import lombok.Getter;
 import lombok.Setter;
+import ph.kana.sched.plan.ProjectPlan;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @Getter
 @Setter
-public class TaskRestEntity {
+class TaskRestEntity {
 
 	private Long id;
 	private String name;
 	private Integer dayDuration;
 	private List<Long> dependencyIds;
 
-	public static TaskRestEntity from(Task task) {
+	static TaskRestEntity from(Task task) {
 		TaskRestEntity response = new TaskRestEntity();
 		response.id = task.getId();
 		response.name = task.getName();
@@ -37,7 +37,7 @@ public class TaskRestEntity {
 		return response;
 	}
 
-	public Task toTask(ProjectPlan plan, List<Task> taskDependencies) {
+	Task toTask(ProjectPlan plan, List<Task> taskDependencies) {
 		Task task = new Task();
 		task.setName(name);
 		task.setDayDuration(dayDuration);
@@ -48,11 +48,5 @@ public class TaskRestEntity {
 		}
 
 		return task;
-	}
-
-	private static void whenTaskDependenciesExists(List<Task> taskDependencies, Consumer<List<Task>> action) {
-		if (Objects.nonNull(taskDependencies) && !taskDependencies.isEmpty()) {
-			action.accept(taskDependencies);
-		}
 	}
 }

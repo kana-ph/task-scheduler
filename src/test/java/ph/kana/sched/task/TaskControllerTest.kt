@@ -1,4 +1,4 @@
-package ph.kana.sched.plan
+package ph.kana.sched.task
 
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import ph.kana.sched.common.error.InvalidTaskDependencyException
 import ph.kana.sched.common.error.MissingRequiredFieldException
 import ph.kana.sched.common.error.ResourceNotFoundException
+import ph.kana.sched.plan.ProjectPlan
+import ph.kana.sched.plan.ProjectPlanService
 import java.util.*
 
 @SpringBootTest
