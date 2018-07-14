@@ -6,6 +6,16 @@ A simple RESTful app that lets you input and schedule tasks.
 2. [Add tasks to Project Plan](#create-task)
 3. [Create Schedule](#create-schedule)
 
+## Environment Setup
+These environment variables are required to make this application work:
+
+Variable | Description | Example Value
+:--------|:------------|:-------
+`DB_DRIVER_DEPENDENCY` | The maven artifact for your database driver. In gradle format | org.postgresql:postgresql:42.2.2
+`DB_URL` | JDBC-compatible connection string. | jdbc:postgresql://localhost:5432/task_scheduler
+`DB_USERNAME` | The username used to connect to the database. | myname
+`DB_PASSWORD` | The password used to connect to the database. | str0nk_p@ssW0rd*1234
+
 ## REST Endpoints
 
 ### Project Plan
@@ -69,6 +79,11 @@ A simple RESTful app that lets you input and schedule tasks.
     "startDate": "2018-07-14"
   }
   ```
+  Field | Description
+  :-----|:------
+  `planId` | The ID of the plan where the tasks are scheduled from.
+  `startDate` | Date in `yyyy-mm-dd` format where the schedule will start.
+  
 * Response:
   ```js
   {
