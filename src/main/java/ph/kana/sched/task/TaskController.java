@@ -1,6 +1,7 @@
 package ph.kana.sched.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ph.kana.sched.common.error.InvalidTaskDependencyException;
 import ph.kana.sched.common.error.MissingRequiredFieldException;
@@ -47,6 +48,7 @@ public class TaskController {
 	}
 
 	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody TaskRestEntity create(@PathVariable Long planId, @RequestBody TaskRestEntity taskEntity)
 			throws ResourceNotFoundException, InvalidTaskDependencyException, MissingRequiredFieldException, ServiceValidationException {
 		ProjectPlan plan = fetchProjectPlan(planId);

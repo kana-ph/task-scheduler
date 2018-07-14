@@ -1,6 +1,7 @@
 package ph.kana.sched.schedule;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ph.kana.sched.common.error.InvalidPlanException;
 import ph.kana.sched.common.error.MissingRequiredFieldException;
@@ -23,6 +24,7 @@ public class ScheduleController {
 	}
 
 	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody ScheduleResponseEntity create(@RequestBody ScheduleRequestEntity requestEntity)
 			throws InvalidPlanException, MissingRequiredFieldException {
 		if (Objects.isNull(requestEntity.getPlanId())) {
